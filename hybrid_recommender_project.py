@@ -17,6 +17,17 @@ rating = pd.read_csv(r'C:\Users\Suleakcay\PycharmProjects\pythonProject3\Dataset
 df = movie.merge(rating, how="left", on="movieId")
 df.head()
 
+#################
+# title
+#################
+#yılı ayrıca ayıklama işlemi
+df['year_movie'] = df.title.str.extract('(\(\d\d\d\d\))', expand=False) #4 değer olan ifadeyi çek
+df['year_movie'] = df.year_movie.str.extract('(\d\d\d\d)', expand=False) #parantezlerin içine alıyoruz
+df['title'] = df.title.str.replace('(\(\d\d\d\d\))', '')  #title içindeki yılı temizliyoruz
+df['title'] = df['title'].apply(lambda x: x.strip()) #oluşan  boşulkları sil
+
+df.shape
+df.head()
 
 
 
