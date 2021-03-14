@@ -66,5 +66,23 @@ corr_df.head()
 #3     2230.0    12312.0 -0.994850
 #4    18955.0     1242.0 -0.993399
 
+#korelasyonu yüzdeatmış beşten büyük olan korelasyonu getir
+#korelasyonu yüksek olan birbirine en yakın kullanıcıdır
+top_users = corr_df[(corr_df["user_id_1"] == user_number) & (corr_df["corr"] >= 0.65)][
+    ["user_id_2", "corr"]].reset_index(drop=True)
+
+top_users = top_users.sort_values(by='corr', ascending=False)
+
+top_users.rename(columns={"user_id_2": "userId"}, inplace=True)
+
+top_users
+#   userId      corr
+#1    908.0  0.958927
+#0  12309.0  0.952563
+
+rating = pd.read_csv(r'C:\Users\Suleakcay\PycharmProjects\pythonProject3\Datasets\rating.csv')
+top_users_ratings = top_users.merge(rating[["userId", "movieId", "rating"]], how='inner')
+top_users_ratings
+top_users_ratings.shape #(143, 4)
 
 
