@@ -106,4 +106,17 @@ recommendation_df = recommendation_df.sort_values(by='weighted_average_recommend
 recommendation_df.head(10)
 
 
+movie = pd.read_csv(r'C:\Users\Suleakcay\PycharmProjects\pythonProject3\Datasets\movie.csv')
+movie_user = movie.loc[movie['movieId'].isin(recommendation_df.head(10)['movieId'].head())]['title']
+movie_user.head()
+movie_user[:5].values
+
+"""array(['Strange Days (1995)',
+            'Pulp Fiction (1994)',
+            'Forrest Gump (1994)',
+            'Rudy (1993)',
+            "Schindler's List (1993)"],
+      dtype=object)"""
+
+
 
