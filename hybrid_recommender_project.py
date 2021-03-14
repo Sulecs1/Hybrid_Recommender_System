@@ -42,4 +42,29 @@ user_movie_count.columns = ["userId", "movie_count"]
 perc = len(movies_watched) * 60 / 100
 users_same_movies = user_movie_count[user_movie_count["movie_count"] > perc]["userId"]
 
+#############################################
+# Adım 4: Öneri yapılacak kullanıcı ile en benzer kullanıcıların belirlenmesi
+#############################################
+#Kişi ile aynı filmi izleyen kullanıcıların id aynı df getirdik
+final_df = pd.concat([movies_watched_df[movies_watched_df.index.isin(users_same_movies.index)],
+                      random_user_df[movies_watched]])
+
+final_df.head()
+final_df.T.corr()
+final_df.shape  #(405, 19)
+
+corr_df = final_df.T.corr().unstack().sort_values().drop_duplicates()
+corr_df = pd.DataFrame(corr_df, columns=["corr"])
+corr_df.index.names = ['user_id_1', 'user_id_2']
+corr_df = corr_df.reset_index()
+corr_df.head()
+
+#   user_id_1  user_id_2      corr
+#0    10759.0    13820.0 -1.000000
+#1    10759.0     8438.0 -1.000000
+#2    12641.0     4674.0 -1.000000
+#3     2230.0    12312.0 -0.994850
+#4    18955.0     1242.0 -0.993399
+
+
 
