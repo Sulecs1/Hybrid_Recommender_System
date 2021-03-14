@@ -165,6 +165,28 @@ df["year"] = df["timestamp"].dt.year
 df["month"] = df["timestamp"].dt.month
 df["day"] = df["timestamp"].dt.day
 df.head()
+######################################
+# Adım 2: User Movie Df'inin Oluşturulması
+######################################
+
+df.shape
+df["title"].nunique() #eşsiz film sayısı :26213
+a = pd.DataFrame(df["title"].value_counts())
+a.head() #titlelara gelen puanlar
+
+rare_movies = a[a["title"] <= 1000].index  #1000 yorumun altındaki filmleri filtreledik
+common_movies = df[~df["title"].isin(rare_movies)]
+common_movies.shape #(2059083, 10)
+common_movies["title"].nunique()  #859
+
+item_movie_df = common_movies.pivot_table(index=["userId"], columns=["title"], values="rating")
+item_movie_df.shape  #(23149, 859)
+user_movie_df.head(10)
+item_movie_df.columns
+
+len(item_movie_df.columns)
+common_movies["title"].nunique()
+
 
 
 
