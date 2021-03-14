@@ -196,6 +196,24 @@ movie = item_movie_df[movie_title]
 movie_item = item_movie_df.corrwith(movie).sort_values(ascending=False)
 item_movie_df[1:6].index
 
+#############################################################################
+#Son olarak user-based 5 öneri ve item-based 5 öneriyi bir araya getiriniz.
+##############################################################################
+
+data_user_item = pd.DataFrame()
+data_user_item["user_recommendations"] = movie_user[:5].values.tolist()
+data_user_item["item_recommendations"] = movie_item[:5].index
+data_user_item
+
+
+#      user_recommendations item_recommendations
+#0      Strange Days (1995)                 Heat
+#1      Pulp Fiction (1994)               Casino
+#2      Forrest Gump (1994)                Ronin
+#3              Rudy (1993)        Carlito's Way
+#4  Schindler's List (1993)           Collateral
+
+
 
 
 
