@@ -85,4 +85,11 @@ top_users_ratings = top_users.merge(rating[["userId", "movieId", "rating"]], how
 top_users_ratings
 top_users_ratings.shape #(143, 4)
 
+#############################################
+# Adım 5: Weighted rating'lerin  hesaplanması
+#############################################
+top_users_ratings['weighted_rating'] = top_users_ratings['corr'] * top_users_ratings['rating']
+top_users_ratings.head()
+
+
 
