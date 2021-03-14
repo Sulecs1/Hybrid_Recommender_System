@@ -186,6 +186,15 @@ item_movie_df.columns
 
 len(item_movie_df.columns)
 common_movies["title"].nunique()
+######################################
+# Adım 3: Korelasyona Dayalı Item-Based Film Önerilerinin Yapılması
+######################################
+movieId = rating[(rating["rating"] == 5.0) & (rating["userId"] ==user_number)].sort_values(by="timestamp",ascending=False)["movieId"][0:1].values[0]
+movie_title = movie[movie["movieId"] == movieId]["title"].str.replace('(\(\d\d\d\d\))', '').str.strip().values[0]
+
+movie = item_movie_df[movie_title]
+movie_item = item_movie_df.corrwith(movie).sort_values(ascending=False)
+item_movie_df[1:6].index
 
 
 
