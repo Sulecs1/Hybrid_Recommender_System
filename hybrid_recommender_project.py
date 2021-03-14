@@ -151,6 +151,20 @@ df.head()
 df["genre"] = df["genres"].apply(lambda x: x.split("|")[0])
 df.drop("genres", inplace=True, axis=1)
 df.head()
+#################
+# timestamp  ->yaygın bir ihtiyaçtır
+#################
+
+df.info()  #timestamp time formatında olması lazım
+
+df["timestamp"] = pd.to_datetime(df["timestamp"], format='%Y-%m-%d')
+df.info() #datetime64[ns]
+
+#Verileri ayrı ayrı çektik
+df["year"] = df["timestamp"].dt.year
+df["month"] = df["timestamp"].dt.month
+df["day"] = df["timestamp"].dt.day
+df.head()
 
 
 
