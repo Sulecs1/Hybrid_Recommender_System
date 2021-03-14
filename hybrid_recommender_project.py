@@ -91,5 +91,19 @@ top_users_ratings.shape #(143, 4)
 top_users_ratings['weighted_rating'] = top_users_ratings['corr'] * top_users_ratings['rating']
 top_users_ratings.head()
 
+#############################################
+# Adım 6: Weighted average recommendation score'un hesaplanması ve ilk beş filmin tutulması
+#############################################
+temp = top_users_ratings.groupby('movieId').sum()[['corr', 'weighted_rating']]
+temp.columns = ['sum_corr', 'sum_weighted_rating']
+
+temp.head()
+
+recommendation_df = pd.DataFrame()
+recommendation_df['weighted_average_recommendation_score'] = temp['sum_weighted_rating'] / temp['sum_corr']
+recommendation_df['movieId'] = temp.index
+recommendation_df = recommendation_df.sort_values(by='weighted_average_recommendation_score', ascending=False)
+recommendation_df.head(10)
+
 
 
